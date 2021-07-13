@@ -33,7 +33,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(	modid = LittleMaidMobX.DOMAIN,
-		name  = LittleMaidMobX.DOMAIN, version = "2")
+		name  = LittleMaidMobX.DOMAIN, version = "@VERSION@")
 public class LittleMaidMobX {
 	
 	public static final String DOMAIN = "lmmx";

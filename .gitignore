@@ -8,4 +8,11 @@ src_/
 ModelRenderer.cc.java
 .classpath
 .settings/
-#.project
+# Uncomment by MJaroslav:
+.project 
+
+# Added by MJaroslav:
+.vscode/
+.idea/
+run
+build/
