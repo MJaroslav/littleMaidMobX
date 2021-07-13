@@ -10,12 +10,12 @@
 * Build script reworked: removed guide comments, fixed archive name and version setter.
 * Upped forge version: __10.13.4.1614__.
 * Removed src/readme_jp.txt and drq
+* Fix trigger gui crash
 
 ## Planned
 
 * More modes for maids
 * Global code clean up
-* Fix trigger gui crash
 * Fix door open/close AI
 * Compatibility with mods
   * Withery: rite of summoning (for maid spawn)
@@ -25,6 +25,7 @@
   * Make more options for configuration
     * Custom items for interactions with Maids
     * Make custom drop after maid death
+    * Make toggle for mode-item and sugar consumability
 * Make localization for non localized strings
   * Add russion localization
 * May be uploading to curse

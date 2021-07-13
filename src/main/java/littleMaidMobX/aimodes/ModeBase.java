@@ -27,6 +27,7 @@ public abstract class ModeBase {
 	
 	public ModeBase(EntityLittleMaid pEntity) {
 		owner = pEntity;
+		init(); // Trigger selection container crash fix
 	}
 
 	public int fpriority;
