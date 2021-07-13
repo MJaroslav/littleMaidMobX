@@ -57,6 +57,7 @@ import littleMaidMobX.aimodes.ModeBase;
 import littleMaidMobX.aimodes.ModeManager;
 import littleMaidMobX.aimodes.Mode_Playing;
 import littleMaidMobX.aimodes.SwingStatus;
+import littleMaidMobX.config.ModConfig;
 import littleMaidMobX.gui.GuiCommonHandler;
 import littleMaidMobX.inventory.InventoryLittleMaid;
 import littleMaidMobX.model.caps.EntityCapsMaid;
@@ -313,10 +314,10 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData par1EntityLivingData) {
 		
 		String ls;
-		if (LittleMaidMobX.cfg_defaultTexture.isEmpty()) {
+		if (ModConfig.defaultTexture.isEmpty()) {
 			ls = ModelManager.instance.getRandomTextureString(rand);
 		} else {
-			ls = LittleMaidMobX.cfg_defaultTexture;
+			ls = ModConfig.defaultTexture;
 		}
 		textureData.setTextureInitServer(ls);
 		LittleMaidMobX.Debug("init-ID:%d, %s:%d", getEntityId(), textureData.textureBox[0].textureName, textureData.getColor());
@@ -716,7 +717,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 			LittleMaidMobX.Debug(String.format("id:%d, se:%04x-%s (%s)", getEntityId(), enumsound.index, enumsound.name(), s));
 			if(!s.isEmpty())
 			{
-				float lpitch = LittleMaidMobX.cfg_VoiceDistortion ? (rand.nextFloat() * 0.2F) + 0.95F : 1.0F;
+				float lpitch = ModConfig.voiceDistortion ? (rand.nextFloat() * 0.2F) + 0.95F : 1.0F;
 				worldObj.playSound(posX, posY, posZ, s, getSoundVolume(), lpitch, false);
 			}
 		}
@@ -737,13 +738,13 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 	@Override
 	protected boolean canDespawn() {
 		
-		return LittleMaidMobX.cfg_canDespawn || super.canDespawn();
+		return ModConfig.canDespawn || super.canDespawn();
 	}
 
 	@Override
 	public boolean getCanSpawnHere() {
 		
-		if (LittleMaidMobX.cfg_spawnLimit <= getMaidCount()) {
+		if (ModConfig.spawnLimit <= getMaidCount()) {
 			LittleMaidMobX.Debug("Spawn Limit.");
 			return false;
 		}
@@ -751,7 +752,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		int ly = MathHelper.floor_double(this.boundingBox.minY);
 		int lz = MathHelper.floor_double(this.posZ);
 		
-		if (LittleMaidMobX.cfg_Dominant) {
+		if (ModConfig.dominant) {
 			
 			return this.worldObj.checkNoEntityCollision(this.boundingBox) 
 					&& this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() 
@@ -1169,7 +1170,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		onInventoryChanged();
 		
 		
-		if (LittleMaidMobX.cfg_antiDoppelganger && maidAnniversary > 0L) {
+		if (ModConfig.antiDoppelganger && maidAnniversary > 0L) {
 			for (int i = 0; i < worldObj.loadedEntityList.size(); i++) {
 				Entity entity1 = (Entity)worldObj.loadedEntityList.get(i);
 				if (!entity1.isDead && entity1 instanceof EntityLittleMaid) {
@@ -2116,7 +2117,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		
 		if (!worldObj.isRemote) {
 			
-			if (LittleMaidMobX.cfg_DeathMessage && mstatMasterEntity != null) {
+			if (ModConfig.printDeathMessages && mstatMasterEntity != null) {
 				String ls = par1DamageSource.getDamageType();
 				Entity lentity = par1DamageSource.getEntity();
 				if (lentity != null) {
@@ -2736,7 +2737,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 				EntityPlayer clientPlayer = LittleMaidMobX.proxy.getClientPlayer();
 
 				if (!LittleMaidMobX.proxy.isSinglePlayer()
-						|| LittleMaidMobX.cfg_checkOwnerName 
+						|| ModConfig.checkOwnerName 
 						|| clientPlayer == null) {
 					lname = getMaidMaster();
 				} else {

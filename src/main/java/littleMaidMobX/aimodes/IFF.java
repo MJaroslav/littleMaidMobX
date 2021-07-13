@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 import littleMaidMobX.Helper;
 import littleMaidMobX.LittleMaidMobX;
+import littleMaidMobX.config.ModConfig;
 import littleMaidMobX.entity.EntityLittleMaid;
 import littleMaidMobX.wrapper.MinecraftWrapper;
 import net.minecraft.entity.Entity;
@@ -139,7 +140,7 @@ public class IFF {
 	
 	public static int getIFF(String pUsername, String entityname, World world) {
 		if (entityname == null) {
-			return LittleMaidMobX.cfg_Aggressive ? iff_Enemy : iff_Friendry;
+			return ModConfig.aggressive? iff_Enemy : iff_Friendry;
 		}
 		int lt = iff_Enemy;
 		Map<String, Integer> lmap = getUserIFF(pUsername);
@@ -178,7 +179,7 @@ public class IFF {
 	
 	public static int getIFF(String pUsername, Entity entity) {
 		if (entity == null || !(entity instanceof EntityLivingBase)) {
-			return LittleMaidMobX.cfg_Aggressive ? iff_Enemy : iff_Friendry;
+			return ModConfig.aggressive ? iff_Enemy : iff_Friendry;
 		}
 		String lename = EntityList.getEntityString(entity);
 		String lcname = lename;

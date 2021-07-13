@@ -11,17 +11,18 @@
 * Upped forge version: __10.13.4.1614__.
 * Removed src/readme_jp.txt and drq
 * Fix trigger gui crash
+* Make configuration based on forge api
+  * Make GUI Configuration
 
 ## Planned
 
 * More modes for maids
 * Global code clean up
-* Fix door open/close AI
+* Fix door open/close AI // Is not a bug, wild maids cant open doors. May be i add this ability later.
 * Compatibility with mods
   * Withery: rite of summoning (for maid spawn)
   * ThaumCraft: add aspects to maid Entity
 * Make configuration based on forge api
-  * Make GUI Configuration
   * Make more options for configuration
     * Custom items for interactions with Maids
     * Make custom drop after maid death
