@@ -599,13 +599,15 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		} catch (Exception s) {
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public static ArrayList<EntityAITaskEntry> getEntityAITasks_taskEntries(EntityAITasks task)
 	{
-		return (ArrayList<EntityAITaskEntry>)ObfuscationReflectionHelper.getPrivateValue(EntityAITasks.class, task, "field_75782_a", "taskEntries");
+		return (ArrayList<EntityAITaskEntry>)task.taskEntries;
 	}
+	@SuppressWarnings("unchecked")
 	public static ArrayList<EntityAITaskEntry> getEntityAITasks_executingTaskEntries(EntityAITasks task)
 	{
-		return (ArrayList<EntityAITaskEntry>)ObfuscationReflectionHelper.getPrivateValue(EntityAITasks.class, task, "field_75780_b", "executingTaskEntries");
+		return (ArrayList<EntityAITaskEntry>)task.executingTaskEntries;
 	}
 
 	
@@ -737,7 +739,7 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 
 	@Override
 	protected boolean canDespawn() {
-		return (ModConfig.General.Spawn.despawn && isContract()) || super.canDespawn();
+		return (ModConfig.General.Spawn.despawn && !isContract()) || super.canDespawn();
 	}
 
 	@Override
@@ -1484,14 +1486,19 @@ public class EntityLittleMaid extends EntityTameable implements ITextureEntity {
 		}
 		
 		if(isContract() && (entity instanceof EntityLivingBase) || (entity instanceof EntityArrow)) {
-			if(worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
-				par2 = 0;
-			}
-			if(worldObj.difficultySetting == EnumDifficulty.EASY && par2 > 0) {
-				par2 = par2 / 2 + 1;
-			}
-			if(worldObj.difficultySetting == EnumDifficulty.HARD) {
-				par2 = (par2 * 3) / 2;
+			if (getOwner().getUniqueID() == entity.getUniqueID()) {
+				if (ModConfig.General.friendlyFire && !((EntityLivingBase)entity).isSneaking())
+					par2 = 0;
+			} else if (ModConfig.General.scaleHurtDamage){
+				if(worldObj.difficultySetting == EnumDifficulty.PEACEFUL) {
+					par2 = 0;
+				}
+				if(worldObj.difficultySetting == EnumDifficulty.EASY && par2 > 0) {
+					par2 = par2 / 2 + 1;
+				}
+				if(worldObj.difficultySetting == EnumDifficulty.HARD) {
+					par2 = (par2 * 3) / 2;
+				}
 			}
 		}
 		

@@ -9,7 +9,7 @@ buildscript {
         // maven {
         //     // Broken by Forge
         //     name = "forge"
-        //     url = "http://files.minecraftforge.net/maven"
+        //     url = "https://maven.minecraftforge.net/"
         // }
         maven {
             name = "sonatype"
@@ -56,5 +56,13 @@ processResources {
         
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+
+    rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'lmmx_at.cfg'
     }
 }

@@ -235,10 +235,9 @@ public class Mode_Ripper extends ModeBase {
 				
 				
 				try {
-					lis.damageItem((Integer)ObfuscationReflectionHelper.getPrivateValue(EntityCreeper.class,
-							(EntityCreeper)pEntity, "field_70833_d", "timeSinceIgnited"), owner);
+					lis.damageItem((Integer) ((EntityCreeper)pEntity).timeSinceIgnited, owner);
 //							(EntityCreeper)pEntity, 1), owner.maidAvatar);
-					ObfuscationReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper)pEntity, 1, "field_70833_d", "timeSinceIgnited");
+					((EntityCreeper)pEntity).timeSinceIgnited = 1;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -254,6 +254,10 @@ public class ModConfig {
         public static boolean deathMessages;
         @PropertyInfo(comment = "Automatically kill maid entity doppelgangers")
         public static boolean antiDoppelganger;
+        @PropertyInfo(comment = "If enabled, you can damage your own maids only while sneaking.")
+        public static boolean friendlyFire;
+        @PropertyInfo(defaultBoolean = true, comment = "Maid hurt damage will dependents from difficulty.")
+        public static boolean scaleHurtDamage;
 
         @CategoryInfo(comment = "Look and feel settings.")
         public static class Cosmetic {

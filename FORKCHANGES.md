@@ -12,10 +12,13 @@
 * Removed src/readme_jp.txt and drq.
 * Fix trigger gui crash.
 * Make configuration based on forge api.
-  * Make auto configutation based on java reflection. _// May be port it to MJUtils lib._
+  * Make auto configuration based on java reflection. _// May be port it to MJUtils lib._
   * Make GUI Configuration.
   * If maid has contract, she dont will despawn with enabled maid despawning.
-  * Rewriten maid ignore list: can add mod ids and/or items by modid:name/modid:name:meta
+  * Rewritten maid ignore list: can add mod ids and/or items by modid:name/modid:name:meta
+  * Added friendly fire option
+  * Added scaling maid hurt damage by difficulty.
+    * Fixed invulnerability of your own maids for your attacks on Peaceful difficulty.
 
 ## Planned
 
@@ -23,7 +26,7 @@
 * Global code clean up.
 * Fix door open/close AI // Is not a bug, wild maids cant open doors. May be i add this ability later.
 * Compatibility with mods.
-  * Withery: rite of summoning (for maid spawn).
+  * Witchery: rite of summoning (for maid spawn).
   * ThaumCraft: add aspects to maid Entity.
 * Make configuration based on forge api.
   * Make more options for configuration.

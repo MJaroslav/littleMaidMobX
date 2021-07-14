@@ -372,7 +372,7 @@ public class Helper {
 				}
 			}
 			
-			lmap = (Map)ObfuscationReflectionHelper.getPrivateValue(EntityList.class, null, "field_75624_e", "classToIDMapping");
+			lmap = (Map)EntityList.classToIDMapping;
 			if (lmap.containsKey(pSrcClass)) {
 				lint = (Integer)lmap.get(pSrcClass);
 //				lmap.remove(pSrcClass);
