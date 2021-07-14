@@ -27,10 +27,10 @@ public class RenderModelMulti extends RenderLiving {
 	public RenderModelMulti(float pShadowSize) {
 		super(null, pShadowSize);
 		modelFATT = new ModelMCArmor(this);
-		modelFATT.isModelAlphablend = ModConfig.alphaBlend;
+		modelFATT.isModelAlphablend = ModConfig.General.Cosmetic.alphaBlend;
 		modelFATT.isRendering = true;
 		modelMain = new ModelMCMain(this);
-		modelMain.isModelAlphablend = ModConfig.alphaBlend;
+		modelMain.isModelAlphablend = ModConfig.General.Cosmetic.alphaBlend;
 		modelMain.capsLink = modelFATT;
 		mainModel = modelMain;
 		setRenderPassModel(modelFATT);

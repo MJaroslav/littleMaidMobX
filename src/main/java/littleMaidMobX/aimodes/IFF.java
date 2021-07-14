@@ -140,7 +140,7 @@ public class IFF {
 	
 	public static int getIFF(String pUsername, String entityname, World world) {
 		if (entityname == null) {
-			return ModConfig.aggressive? iff_Enemy : iff_Friendry;
+			return ModConfig.General.Behavior.aggressive ? iff_Enemy : iff_Friendry;
 		}
 		int lt = iff_Enemy;
 		Map<String, Integer> lmap = getUserIFF(pUsername);
@@ -179,7 +179,7 @@ public class IFF {
 	
 	public static int getIFF(String pUsername, Entity entity) {
 		if (entity == null || !(entity instanceof EntityLivingBase)) {
-			return ModConfig.aggressive ? iff_Enemy : iff_Friendry;
+			return ModConfig.General.Behavior.aggressive ? iff_Enemy : iff_Friendry;
 		}
 		String lename = EntityList.getEntityString(entity);
 		String lcname = lename;

@@ -1,5 +1,7 @@
 package littleMaidMobX;
 
+import java.util.List;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -18,6 +20,7 @@ import littleMaidMobX.network.Message;
 import littleMaidMobX.network.NetConstants;
 import littleMaidMobX.network.Network;
 import littleMaidMobX.registry.ModelManager;
+import littleMaidMobX.util.ItemStackUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +44,7 @@ public class LittleMaidMobX {
 	public static boolean isDebugModels = false;
 
 	public static void Debug(String pText, Object... pData) {
-		if (ModConfig.debugMessages) {
+		if (ModConfig.General.Debug.enable && ModConfig.General.Debug.messages) {
 			// TODO: use Logger class instead with proper names and a way to enable/disable
 			// (one logger for sound, one for AI, one for models, etc)
 			if (pText.contains("Sound"))
@@ -57,7 +60,7 @@ public class LittleMaidMobX {
 	}
 
 	public static void Debug(boolean isRemote, String pText, Object... pData) {
-		if (ModConfig.debugMessages)
+		if (ModConfig.General.Debug.enable && ModConfig.General.Debug.messages)
 			System.out.println(String.format("[" + (isRemote ? "Client" : "Server") + "]MMMLib-" + pText, pData));
 	}
 
@@ -110,7 +113,7 @@ public class LittleMaidMobX {
 		spawnEgg.setUnlocalizedName(DOMAIN + ":spawn_lmmx_egg");
 		spawnEgg.setTextureName(DOMAIN + ":spawn_lmmx_egg");
 		GameRegistry.registerItem(spawnEgg, "spawn_lmmx_egg");
-		if (ModConfig.enableSpawnEgg) {
+		if (ModConfig.General.Spawn.spawnEggRecipe) {
 
 			GameRegistry.addRecipe(new ItemStack(spawnEgg, 1),
 					new Object[] { "scs", "sbs", " e ", Character.valueOf('s'), Items.sugar, Character.valueOf('c'),
@@ -138,9 +141,11 @@ public class LittleMaidMobX {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
-
+		// No more needed
 		// "aaa, bbb,ccc " -> "aaa" "bbb" "ccc"
-		ignoreItemList = ModConfig.ignoreItemList.split("\\s*,\\s*");
+		// ignoreItemList =
+		// ModConfig.General.Behavior.ignoreItemList.split("\\s*,\\s*");
+		ignoredItemList = ItemStackUtils.parseStringArray(ModConfig.General.Behavior.ignoredItemList);
 
 		MinecraftForge.EVENT_BUS.register(new EventHook());
 
@@ -149,8 +154,8 @@ public class LittleMaidMobX {
 
 		// Dominant
 		BiomeGenBase[] biomeList = null;
-		if (ModConfig.spawnWeight > 0) {
-			if (ModConfig.dominant) {
+		if (ModConfig.General.Spawn.weight > 0) {
+			if (ModConfig.General.Spawn.dominant) {
 				biomeList = BiomeGenBase.getBiomeGenArray();
 			} else {
 
@@ -160,8 +165,9 @@ public class LittleMaidMobX {
 			}
 			for (BiomeGenBase biome : biomeList) {
 				if (biome != null) {
-					EntityRegistry.addSpawn(EntityLittleMaid.class, ModConfig.spawnWeight, ModConfig.minGroupSize,
-							ModConfig.maxGroupSize, EnumCreatureType.creature, biome);
+					EntityRegistry.addSpawn(EntityLittleMaid.class, ModConfig.General.Spawn.weight,
+							ModConfig.General.Spawn.minGroupSize, ModConfig.General.Spawn.maxGroupSize,
+							EnumCreatureType.creature, biome);
 				}
 			}
 		}
@@ -169,21 +175,16 @@ public class LittleMaidMobX {
 		IFF.loadIFFs();
 	}
 
-	private static String ignoreItemList[] = new String[] {};
+	public static List<ItemStack> ignoredItemList;
 
 	public static boolean isMaidIgnoreItem(ItemStack item) {
-		return item != null && item.getItem() != null && isMaidIgnoreItem(item.getItem());
-	}
-
-	public static boolean isMaidIgnoreItem(Item item) {
-		if (item != null) {
-			String name = Item.itemRegistry.getNameForObject(item);
-			for (String ignoreItemName : ignoreItemList) {
-				if (name.indexOf(ignoreItemName) != -1) {
-					return true;
-				}
-			}
-		}
+		String modid = GameRegistry.findUniqueIdentifierFor(item.getItem()).modId;
+		for (String element : ModConfig.General.Behavior.ignoredModIds)
+			if (element.equals(modid))
+				return true;
+		for (ItemStack element : ignoredItemList)
+			if (ItemStackUtils.equalsItemAndMeta(element, item))
+				return true;
 		return false;
 	}
 
