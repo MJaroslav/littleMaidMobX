@@ -185,7 +185,7 @@ public class ModConfig {
                     if (isArray)
                         property = instance.get(categoryName, name, data.defaultStringArray(), data.comment(), type);
                     else
-                        property = instance.get(categoryName, name, data.defaulString(), data.comment(), type);
+                        property = instance.get(categoryName, name, data.defaultString(), data.comment(), type);
                     if (!StringUtils.isNullOrEmpty(property.comment))
                         property.comment += " [default: " + property.getDefault() + "]";
                 }
